@@ -1,0 +1,24 @@
+name: UpdateSolutionTemplate
+
+on: 
+  push:
+    paths:
+      - '/dist/Artifacts.zip'
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Add Artifacts to marketplace zip
+      run: |
+        ls .\marketplace\
+        Remove-Item .\marketplace\Artifacts.zip, .\marketplace\marketplace.zip
+        ls .\marketplace\
+        copy-item .\dist\Artifacts.zip -Destination .\marketplace\
+        ls .\marketplace\
+        Compress-7Zip -Path .\marketplace\ -ArchiveFileName .\marketplace.zip -Format Zip
+        Move-Item -Path .\marketplace.zip -Destination .\marketplace\
+        ls .\marketplace\
