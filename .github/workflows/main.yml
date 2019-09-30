@@ -1,9 +1,7 @@
 name: UpdateSolutionTemplate
 
 on: 
-  push:
-    paths:
-      - '/dist/Artifacts.zip'
+  push
 
 jobs:
   build:
